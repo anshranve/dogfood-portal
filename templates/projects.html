@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Project Gallery · {{ event.get('name', 'DOGFOOD') }}{% endblock %}
+{% block content %}
+<section class="hero">
+  <p class="eyebrow">THE SHOWCASE</p>
+  <h1>Ideas worth<br><span>putting on stage.</span></h1>
+  <p class="hero-copy">Explore the projects built by this community. Find a team, a track, or an idea that catches your eye.</p>
+  <div class="hero-bottom"><span><strong>{{ projects|length }}</strong> projects{% if query %} matching “{{ query }}”{% endif %}</span><a href="{{ url_for('submit_project') }}">Have a project? Submit it <span aria-hidden="true">→</span></a></div>
+</section>
+<section class="gallery-section">
+  <div class="section-heading"><div><p class="eyebrow">COMMUNITY BUILDS</p><h2>Project gallery</h2></div>
+    <form class="search" method="get" action="{{ url_for('projects') }}"><label class="sr-only" for="q">Search projects</label><span aria-hidden="true">⌕</span><input id="q" name="q" value="{{ query }}" placeholder="Search projects or tracks"><button type="submit">Search</button></form>
+  </div>
+  {% if projects %}
+  <div class="project-grid">
+    {% for project in projects %}
+    <article class="project-card">
+      <div class="card-top"><span class="track-tag">{{ project['track'] }}</span><span class="card-number">{{ "%02d"|format(loop.index) }}</span></div>
+      <h3><a href="{{ url_for('project_detail', project_id=project['id']) }}">{{ project['title'] }}</a></h3>
+      <p class="project-summary">{{ project['summary'] or 'No summary provided yet.' }}</p>
+      <div class="card-footer"><span>◈ &nbsp;{{ project['team'] }}</span><a href="{{ url_for('project_detail', project_id=project['id']) }}" aria-label="View {{ project['title'] }}">View project ↗</a></div>
+    </article>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-state"><span class="empty-icon">⌕</span><h3>No projects found</h3><p>Try a different search, or clear the search box to see every project.</p><a class="button" href="{{ url_for('projects') }}">Show all projects</a></div>
+  {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}{{ project['title'] }} · Project{% endblock %}
+{% block content %}
+<section class="detail-wrap">
+  <a class="back-link" href="{{ url_for('projects') }}">← Back to gallery</a>
+  <p class="eyebrow">{{ project['track'] }}</p>
+  <h1 class="detail-title">{{ project['title'] }}</h1>
+  <p class="detail-team">Submitted by {{ project['team'] }}</p>
+  <div class="detail-panel"><h2>About this project</h2><p>{{ project['summary'] or 'No summary provided yet.' }}</p><a class="button" href="{{ project['repo_url'] }}" target="_blank" rel="noreferrer">View repository ↗</a></div>
+</section>
+{% endblock %}

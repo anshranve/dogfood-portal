@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Submit a project · {{ event.get('name', 'DOGFOOD') }}{% endblock %}
+{% block content %}
+<section class="form-wrap">
+  <a class="back-link" href="{{ url_for('projects') }}">← Back to gallery</a>
+  <p class="eyebrow">YOUR WORK, ON STAGE</p>
+  <h1 class="form-title">Submit a project</h1>
+  {% if is_closed %}
+    <div class="notice notice-closed"><strong>Submissions are closed.</strong><span>This event's submission deadline has passed. You can still explore the project gallery.</span></div>
+  {% else %}
+    <p class="form-intro">Share the idea, the people behind it, and where to find the code.</p>
+    {% if error %}<div class="notice notice-error">{{ error }}</div>{% endif %}
+    <form class="project-form" method="post">
+      <label for="title">Project name</label><input id="title" name="title" maxlength="100" required placeholder="e.g. Quiet Hours">
+      <label for="summary">Short description</label><textarea id="summary" name="summary" rows="4" maxlength="1000" required placeholder="What does it do, and who is it for?"></textarea>
+      <label for="repo_url">Repository URL</label><input id="repo_url" name="repo_url" type="url" required placeholder="https://github.com/yourname/project">
+      <label for="track">Track</label><input id="track" name="track" maxlength="80" placeholder="e.g. Developer tools">
+      <button class="button" type="submit">Submit project <span aria-hidden="true">→</span></button>
+    </form>
+  {% endif %}
+</section>
+{% endblock %}

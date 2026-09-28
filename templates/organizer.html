@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Organizer dashboard · {{ event.get('name', 'DOGFOOD') }}{% endblock %}
+{% block content %}
+<section class="detail-wrap">
+  <p class="eyebrow">ORGANIZER VIEW</p>
+  <h1 class="detail-title">Event overview</h1>
+  <p class="detail-team">{{ event.get('name') }} · submissions close {{ event.get('submissions_close') }}</p>
+  <div class="detail-panel">
+    <div class="dashboard-head"><div><h2>{{ projects|length }} submitted projects</h2><p>Export data for archival, reporting, or an offline backup.</p></div><a class="button" href="{{ url_for('export_csv') }}">Export CSV ↗</a></div>
+    <table><thead><tr><th>Project</th><th>Track</th><th>Team</th></tr></thead><tbody>{% for project in projects %}<tr><td>{{ project['title'] }}</td><td>{{ project['track'] }}</td><td>{{ project['team'] }}</td></tr>{% endfor %}</tbody></table>
+  </div>
+</section>
+{% endblock %}

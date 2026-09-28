@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ event.get('name', 'DOGFOOD Portal') }}{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="{{ url_for('projects') }}"><span class="brand-mark">D</span><span>DOGFOOD<span class="brand-light"> PORTAL</span></span></a>
+    <nav><a href="{{ url_for('projects') }}">Project gallery</a>{% if current_user and current_user['role'] == 'organizer' %}<a href="{{ url_for('organizer_dashboard') }}">Organizer view</a>{% endif %}<a class="nav-cta" href="{{ url_for('submit_project') }}">Submit a project <span aria-hidden="true">↗</span></a></nav>
+  </header>
+  <main>
+    <div class="event-strip"><span class="live-dot"></span>{{ event.get('name', 'Hackathon') }} <span class="strip-separator">/</span> Submission &amp; judging portal</div>
+    {% block content %}{% endblock %}
+  </main>
+  <footer>Built for organizers, participants, and judges. <span>Local-first · Open source</span></footer>
+</body>
+</html>
